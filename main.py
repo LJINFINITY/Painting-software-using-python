@@ -24,9 +24,7 @@ draw = ImageDraw.Draw(img)
 def ei():
     fp=fd.asksaveasfile(defaultextension=".png",
                         filetypes=(("PNG", "*.png"), 
-                                   ("JPEG", "*.jpg")
-                                )
-                            )
+                                   ("JPEG", "*.jpg")))
     if fp:
         img.save(fp.name)
 
@@ -181,6 +179,7 @@ c.bind("<B1-Motion>", mm)
 c.bind("<ButtonRelease-1>", mu)
 r.bind_all("<Control-z>", lambda e: undo())
 r.bind_all("<Control-Z>", lambda e: redo())
+
 
 
 r.mainloop()
