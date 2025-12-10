@@ -7,10 +7,10 @@ from collections import deque
 ms=""  #Mouse State
 mdx=mdy=mux=muy=0 #Temp cords for drawing shapes and stuff
 lx=ly=0  #Last Mouse cords
-bs=3    #Brush Size
+bs=2    #Brush Size
 bc="#000000"  #Brush Color
 ct="brush"      #Current Tool
-ts=None  #Tool Shape
+ts=None     #Tool Shape
 
 us=[]  #undo stack
 rs=[]  #redo stack
@@ -59,6 +59,7 @@ def ff(x, y, fill_color):
 def nc(x1, y1, x2, y2):
     return min(x1, x2), min(y1, y2), max(x1, x2), max(y1, y2)
 def hex_to_rgb(h):
+    
     h = h.lstrip('#')
     return tuple(int(h[i:i+2], 16) for i in (0, 2, 4))
 
@@ -146,25 +147,25 @@ def set_ct(x):
     global ct
     ct = x
 
-
 r = tk.Tk()
 r.focus_set()
 r.title("Painting App")
 r.state("zoomed")
 
+
 tb = tk.Frame(r)
 tb.pack(side="left", fill="y")
 
 tk.Scale(tb, from_=1, to=30, orient="horizontal",
-         label="Brush Size", command=set_bs).pack()
+         label="Brush Size", command=set_bs).pack(pady=5)
 
-tk.Button(tb, text="Choose Color", command=set_bc).pack()
-tk.Button(tb, text="Brush", command=lambda: set_ct("brush")).pack()
-tk.Button(tb, text="Eraser", command=lambda: set_ct("eraser")).pack()
-tk.Button(tb, text="Fill", command=lambda: set_ct("fill")).pack()
-tk.Button(tb, text="Circle", command=lambda: set_ct("circle")).pack()
-tk.Button(tb, text="Rectangle", command=lambda: set_ct("rectangle")).pack()
-tk.Button(tb, text="Export", command=ei).pack()
+tk.Button(tb, text="Choose Color", command=set_bc).pack(pady=5)
+tk.Button(tb, text="Brush", command=lambda: set_ct("brush")).pack(pady=5)
+tk.Button(tb, text="Eraser", command=lambda: set_ct("eraser")).pack(pady=5)
+tk.Button(tb, text="Fill", command=lambda: set_ct("fill")).pack(pady=5)
+tk.Button(tb, text="Circle", command=lambda: set_ct("circle")).pack(pady=5)
+tk.Button(tb, text="Rectangle", command=lambda: set_ct("rectangle")).pack(pady=5)
+tk.Button(tb, text="💾 Export Image", command=ei).pack(pady=5)
 
 c = tk.Canvas(r, bg="white")
 c.pack(fill="both", expand=True)
@@ -172,14 +173,10 @@ c.pack(fill="both", expand=True)
 tk_img = ImageTk.PhotoImage(img)
 img_id = c.create_image(0, 0, anchor="nw", image=tk_img)
 
-
-
 c.bind("<Button-1>", md)
 c.bind("<B1-Motion>", mm)
 c.bind("<ButtonRelease-1>", mu)
 r.bind_all("<Control-z>", lambda e: undo())
 r.bind_all("<Control-Z>", lambda e: redo())
-
-
 
 r.mainloop()
