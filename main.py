@@ -15,7 +15,6 @@ ts=None     #Tool Shape
 us=[]  #undo stack
 rs=[]  #redo stack
 
-
 W, H = 1200, 800  
 img = Image.new("RGB", (W, H), "white")
 us.append(img.copy())
@@ -28,12 +27,10 @@ def ei():
     if fp:
         img.save(fp.name)
 
-
 def uc():
     global tk_img
     tk_img = ImageTk.PhotoImage(img)
     c.itemconfig(img_id, image=tk_img)
-
 
 def ff(x, y, fill_color):
     start_color = img.getpixel((x, y))
@@ -100,7 +97,6 @@ def md(event):
     lx, ly = event.x, event.y
     dt(event.x, event.y)
     
-
 def mm(event):
     global lx, ly, ms
     ms = "move"
@@ -115,7 +111,6 @@ def mu(event):
     us.append(img.copy())
     rs.clear()
 
-
 def undo():
     global us, rs, img, draw
     if len(us) > 1:
@@ -123,7 +118,6 @@ def undo():
         img = us[-1]
         draw = ImageDraw.Draw(img)
         uc()
-    
 
 def redo():
     global us, rs, img, draw
@@ -132,8 +126,7 @@ def redo():
         us.append(img.copy())
         draw = ImageDraw.Draw(img)
         uc()
-    
-
+        
 def set_bs(x):
     global bs
     bs = int(x)
@@ -151,7 +144,6 @@ r = tk.Tk()
 r.focus_set()
 r.title("Painting App")
 r.state("zoomed")
-
 
 tb = tk.Frame(r)
 tb.pack(side="left", fill="y")
